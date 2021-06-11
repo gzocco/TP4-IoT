@@ -40,10 +40,10 @@ describe('Test Chrome get 3rd not AD result', async function () {
             text = await target.getText();
             tag = await target.getTagName(); //.click();
             console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
+            // i 4 la 2da es el target. 
          }
       }
    });
-
 
    it('Se busca Pepito', async function () {
       this.timeout(TIMEOUT);
@@ -63,6 +63,7 @@ describe('Test Chrome get 3rd not AD result', async function () {
             text = await target.getText();
             tag = await target.getTagName(); //.click();
             console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
+            // i 5 la  primera es 
          }
       }
    });
@@ -87,54 +88,7 @@ describe('Test Chrome get 3rd not AD result', async function () {
          }
       }
    });
-
-   /* it('check reset is working', async function () {
-      this.timeout(TIMEOUT);
-      await driver.get('https://sensor/reset');
-
-      driver.findElement(By.id('action')).then(element => {
-         expect(element.text).to.equal('reset');
-      });
-   });
-
-   it('check that sitio1 does not generate hits', async function () {
-      this.timeout(TIMEOUT);
-      await driver.get('https://sensor/reset');
-      await driver.get('https://sitio1/');
-      await driver.get('https://sensor/hitcount');
-      driver.findElement(By.id('count')).then(element => {
-         expect(element.text).to.equal('0');
-      });
-   });
-
-   it('check that sitio2 generates two hit', async function () {
-      this.timeout(TIMEOUT);
-      await driver.get('https://sensor/reset');
-      await driver.get('https://sitio2/');
-      await driver.get('https://sensor/hitcount');
-      driver.findElement(By.id('count')).then(element => {
-         expect(element.text).to.equal('2');
-      });
-   });
-
-   it('check that there is no navigation away from sitio1', async function () {
-      this.timeout(12000);
-      await driver.get('https://sensor/reset');
-      await driver.get('https://sitio1/');
-      driver.findElement(By.id('canary')).then(element => {
-         expect(element.text).to.equal('Canario');
-      });
-   });
-
-   it('check that sitio2 only posts to form sensor without loading it', async function () {
-      this.timeout(12000);
-      await driver.get('https://sensor/reset');
-      await driver.get('https://sitio2/');
-      driver.findElement(By.id('canary')).then(element => {
-         expect(element.text).to.equal('Canario');
-      });
-   });
- */
+  
    after(() =>
       driver && driver.quit()
    );

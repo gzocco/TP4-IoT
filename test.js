@@ -25,70 +25,33 @@ describe('Test Chrome get 3rd not AD result', async function () {
    it('Se busca Javascript', async function () {
       this.timeout(TIMEOUT);
       var searchString = "Javascript";
+      var paginaBuscada = 'JavaScript - Wikipedia, la enciclopedia libre';
       await driver.get("http://google.com");
       await driver.findElement(By.name("q")).sendKeys(searchString, Key.RETURN);
-      // this.timeout(TIMEOUT);
+      //this.timeout(TIMEOUT);
       var title = await driver.getTitle();
-      await driver.wait(until.titleIs(title), 1000);
+      await driver.wait(until.titleIs(title));
       element = {};
       for (var i = 0; i < 9; i++) {
          element[i] = await driver.findElements(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
          if (element[i].length != 0) {
-            //console.log("Element: " + i + "= " + JSON.stringify(element[i]));
-            // await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3')).click();
             target = await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
             text = await target.getText();
-            tag = await target.getTagName(); //.click();
-            console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
-            // i 4 la 2da es el target. 
+            //tag = await target.getTagName();
+            //console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
+            if (text == paginaBuscada) {
+               //console.log('Ingreso al link de: ' + text);
+               await target.click();
+               //this.timeout(TIMEOUT);
+               await driver.wait(until.titleIs(paginaBuscada));
+               var tituloEsperado = await driver.getTitle();
+               //console.log('Titulo leugo del click: '+ tituloEsperado);
+               expect(tituloEsperado).to.equal(paginaBuscada);
+            }
          }
       }
    });
 
-   it('Se busca Pepito', async function () {
-      this.timeout(TIMEOUT);
-      var searchString = "Pepito";
-      await driver.get("http://google.com");
-      await driver.findElement(By.name("q")).sendKeys(searchString, Key.RETURN);
-      // this.timeout(TIMEOUT);
-      var title = await driver.getTitle();
-      await driver.wait(until.titleIs(title), 1000);
-      element = {};
-      for (var i = 0; i < 9; i++) {
-         element[i] = await driver.findElements(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
-         if (element[i].length != 0) {
-            //console.log("Element: " + i + "= " + JSON.stringify(element[i]));
-            // await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3')).click();
-            target = await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
-            text = await target.getText();
-            tag = await target.getTagName(); //.click();
-            console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
-            // i 5 la  primera es 
-         }
-      }
-   });
-
-   it('Se busca Tiramisu', async function () {
-      this.timeout(TIMEOUT);
-      var searchString = "Tiramisu";
-      await driver.get("http://google.com");
-      await driver.findElement(By.name("q")).sendKeys(searchString, Key.RETURN);
-      var title = await driver.getTitle();
-      await driver.wait(until.titleIs(title), 1000);
-      element = {};
-      for (var i = 0; i < 9; i++) {
-         element[i] = await driver.findElements(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
-         if (element[i].length != 0) {
-            //console.log("Element: " + i + "= " + JSON.stringify(element[i]));
-            // await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3')).click();
-            target = await driver.findElement(By.css('#rso > div:nth-child(' + i + ') > div > div > div.yuRUbf > a > h3'));
-            text = await target.getText();
-            tag = await target.getTagName(); //.click();
-            console.log("i: " + i + "- Text: " + text + "- tag: " + tag);
-         }
-      }
-   });
-  
    after(() =>
       driver && driver.quit()
    );
